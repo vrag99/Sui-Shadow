@@ -11,7 +11,6 @@ const { networkConfig } = createNetworkConfig({
 
 const queryClient = new QueryClient();
 
-
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
