@@ -1,12 +1,13 @@
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { motion } from "framer-motion"
-import type { NFT } from "@/lib/sample-data"
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import type { NFT } from "@/lib/types";
+import { shortenAddress } from "@polymedia/suitcase-core";
+import { LockIcon } from "lucide-react";
 
 interface NFTCardProps {
-  nft: NFT
-  onClick: () => void
-  delay?: number
+  nft: NFT;
+  onClick: () => void;
+  delay?: number;
 }
 
 export function NFTCard({ nft, onClick, delay = 0 }: NFTCardProps) {
@@ -22,36 +23,12 @@ export function NFTCard({ nft, onClick, delay = 0 }: NFTCardProps) {
     >
       <Card className="overflow-hidden border bg-card hover:shadow-lg transition-shadow">
         <CardContent className="p-0">
-          <div className="relative aspect-square">
-            <img src={nft.image || "/vite.svg"} alt={nft.name} className="object-cover" />
+          <div className="relative">
+            <img src={nft.image} alt={nft.name} className="object-cover" />
             {nft.isObfuscated && (
-              <div className="absolute inset-0 bg-background/80">
-                <div className="h-full w-full grid grid-cols-8 grid-rows-8">
-                  {Array.from({ length: 64 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className={`${
-                        [5, 12, 19, 28, 35, 44, 51, 58].includes(i) ? "bg-muted-foreground/20" : "bg-background"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-            <div className="absolute top-2 right-2">
-              <Badge variant={
-                nft.rarity === 'Common' ? 'common' :
-                nft.rarity === 'Rare' ? 'rare' :
-                nft.rarity === 'Epic' ? 'epic' :
-                nft.rarity === 'Legendary' ? 'legendary' : 'default'
-              } className="text-xs">
-                {nft.rarity}
-              </Badge>
-            </div>
-            {nft.isObfuscated && (
-              <div className="absolute top-2 left-2">
-                <div className="flex items-center gap-1">
-                  <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                <div className="absolute top-3 left-3">
+                <div className="flex items-center gap-2 bg-background/90 rounded-full px-3 py-1">
+                  <LockIcon className="h-3 w-3 text-primary" />
                   <span className="text-xs text-primary font-medium">Encrypted</span>
                 </div>
               </div>
@@ -60,26 +37,21 @@ export function NFTCard({ nft, onClick, delay = 0 }: NFTCardProps) {
           <div className="p-4 space-y-3">
             <div>
               <h3 className="font-semibold text-lg">{nft.name}</h3>
-              <p className="text-sm text-muted-foreground">by {nft.creator}</p>
+              <p className="text-sm text-muted-foreground">
+                by {shortenAddress(nft.creator)}
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">
+                {nft.metadata.description}
+              </p>
             </div>
             <div className="flex items-center justify-between">
-              <div className="text-lg font-bold text-primary">{nft.price} SUI</div>
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {nft.tags.slice(0, 3).map((tag) => (
-                <Badge key={tag} variant="outline" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-              {nft.tags.length > 3 && (
-                <Badge variant="outline" className="text-xs">
-                  +{nft.tags.length - 3}
-                </Badge>
-              )}
+              <div className="text-lg font-bold text-primary">
+                {nft.metadata.price} SUI
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
     </motion.div>
-  )
+  );
 }

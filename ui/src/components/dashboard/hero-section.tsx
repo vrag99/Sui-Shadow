@@ -19,7 +19,7 @@ export function HeroSection({ title, description, badge }: HeroSectionProps) {
           transition={{ duration: 0.5 }}
           className="flex flex-col items-center justify-center space-y-4 text-center"
         >
-          <div className="space-y-2">
+          <div className="space-y-2 w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -30,14 +30,14 @@ export function HeroSection({ title, description, badge }: HeroSectionProps) {
             </motion.div>
             <AnimatedText
               text={title}
-              className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl/none"
+              className="text-3xl font-bold tracking-tight flex justify-center sm:text-4xl md:text-5xl lg:text-6xl/none"
               delay={0.2}
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="mx-auto max-w-[700px] text-muted-foreground md:text-xl"
+              className="mx-max-w-[700px] text-muted-foreground md:text-xl"
             >
               {description}
             </motion.p>

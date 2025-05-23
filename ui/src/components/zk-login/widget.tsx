@@ -62,7 +62,6 @@ export const ZkLogin: React.FC<{
 }> = ({ loggedInTrigger, loggedOutTrigger }) => {
   const {
     loggedIn,
-    setLoggedIn,
     accounts,
     balances,
     setAccounts,
@@ -185,7 +184,6 @@ export const ZkLogin: React.FC<{
       },
       ...accounts,
     ]);
-    setLoggedIn(true);
   }
 
   async function sendTransaction(account: AccountData) {
@@ -258,7 +256,6 @@ export const ZkLogin: React.FC<{
     sessionStorage.clear();
     clearAccounts();
     clearBalances();
-    setLoggedIn(false);
   }
 
   if (loggedIn) {

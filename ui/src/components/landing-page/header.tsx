@@ -2,7 +2,7 @@
 
 import { NavLink as Link } from "react-router";
 import { motion } from "framer-motion";
-import { Lock } from "lucide-react";
+import { Ghost } from "lucide-react";
 import { AnimatedButton } from "./animated/animated-button";
 import { ZkLogin } from "../zk-login/widget";
 
@@ -31,7 +31,7 @@ export function Header() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-2"
         >
-          <Lock className="h-5 w-5 text-primary" />
+          <Ghost className="h-5 w-5 text-primary" />
           <span className="text-lg font-bold tracking-tight">Sui Shadow</span>
         </motion.div>
         <motion.nav

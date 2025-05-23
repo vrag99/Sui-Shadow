@@ -3,12 +3,12 @@
 import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
 import { motion } from "framer-motion"
 import { CheckCircle, Copy, Eye, Lock, Shield } from "lucide-react"
-import type { NFT } from "@/lib/sample-data"
+import type { NFT } from "@/lib/types"
 import { generateProof } from "@/lib/sample-data"
 
 interface NFTDialogProps {
@@ -56,32 +56,12 @@ export function NFTDialog({ nft, open, onOpenChange, isMarketplace = true }: NFT
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">{nft.name}</DialogTitle>
-          <DialogDescription>
-            Created by {nft.creator} • {nft.createdAt.toLocaleDateString()}
-          </DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6">
           <div className="space-y-4">
-            <div className="relative aspect-square rounded-lg overflow-hidden border">
-              <img src={nft.image || "/placeholder.svg"} alt={nft.name} className="object-cover" />
-              {nft.isObfuscated && (
-                <div className="absolute inset-0 bg-background/80">
-                  <div className="h-full w-full grid grid-cols-8 grid-rows-8">
-                    {Array.from({ length: 64 }).map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.1, delay: i * 0.01 }}
-                        className={`${
-                          [5, 12, 19, 28, 35, 44, 51, 58].includes(i) ? "bg-muted-foreground/20" : "bg-background"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+            <div className="relative rounded-lg overflow-hidden border">
+              <img src={nft.image} alt={nft.name} className="object-cover" />
               {nft.isObfuscated && (
                 <div className="absolute top-3 left-3">
                   <div className="flex items-center gap-2 bg-background/90 rounded-full px-3 py-1">
@@ -91,32 +71,24 @@ export function NFTDialog({ nft, open, onOpenChange, isMarketplace = true }: NFT
                 </div>
               )}
             </div>
-
-            <div className="flex flex-wrap gap-2">
-              {nft.tags.map((tag) => (
-                <Badge key={tag} variant="outline">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
           </div>
 
           <div className="space-y-6">
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-muted-foreground">Price</span>
-                <Badge variant="secondary">{nft.rarity}</Badge>
+                {/* <Badge variant="secondary">{nft.rarity}</Badge> */}
               </div>
-              <div className="text-3xl font-bold text-primary">{nft.price} SUI</div>
+              <div className="text-3xl font-bold text-primary">{nft.metadata.price} SUI</div>
             </div>
 
             <Separator />
 
             <div>
               <h4 className="font-semibold mb-2">Description</h4>
-              <p className="text-sm text-muted-foreground">{nft.description}</p>
+              <p className="text-sm text-muted-foreground">{nft.metadata.description}</p>
             </div>
-
+{/* 
             {nft.revealConditions && (
               <div>
                 <h4 className="font-semibold mb-2 flex items-center gap-2">
@@ -125,7 +97,7 @@ export function NFTDialog({ nft, open, onOpenChange, isMarketplace = true }: NFT
                 </h4>
                 <p className="text-sm text-muted-foreground">{nft.revealConditions}</p>
               </div>
-            )}
+            )} */}
 
             {!isMarketplace && nft.proof && (
               <div>
@@ -170,7 +142,7 @@ export function NFTDialog({ nft, open, onOpenChange, isMarketplace = true }: NFT
                   </Button>
 
                   <Button onClick={handleBuy} disabled={!proof || isBuying} className="w-full">
-                    {isBuying ? "Processing..." : `Buy for ${nft.price} SUI`}
+                    {isBuying ? "Processing..." : `Buy for ${nft.metadata.price} SUI`}
                   </Button>
                 </div>
               </div>

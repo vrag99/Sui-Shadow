@@ -1,97 +1,92 @@
-export interface NFT {
-  id: string;
-  name: string;
-  price: number;
-  tags: string[];
-  image: string;
-  description: string;
-  creator: string;
-  createdAt: Date;
-  rarity: "Common" | "Rare" | "Epic" | "Legendary";
-  isObfuscated: boolean;
-  revealConditions?: string;
-  proof?: string;
-}
+import type { NFT } from "./types";
 
 export const marketplaceNFTs: NFT[] = [
   {
     id: "1",
     name: "Obfuscated Ape #1337",
-    price: 2.5,
-    tags: ["Mystery", "Ape", "Rare"],
-    image: "/vite.svg",
-    description:
-      "A mysterious ape with hidden features waiting to be revealed.",
-    creator: "CryptoArtist",
-    createdAt: new Date("2024-01-15"),
-    rarity: "Rare",
-    isObfuscated: true,
-    revealConditions: "Time-based unlock in 3 days",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description:
+        "A mysterious ape with hidden features waiting to be revealed.",
+      price: 2.5,
+    },
+    merkleroot:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    image: "/monkey.jpg",
+    isObfuscated: "true",
   },
   {
     id: "2",
     name: "Shadow Punk #0042",
-    price: 1.8,
-    tags: ["Punk", "Shadow", "Epic"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "A cyberpunk character with encrypted accessories.",
-    creator: "PixelMaster",
-    createdAt: new Date("2024-01-20"),
-    rarity: "Epic",
-    isObfuscated: true,
-    revealConditions: "Purchase required for full reveal",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description: "A cyberpunk character with encrypted accessories.",
+      price: 1.8,
+    },
+    merkleroot:
+      "0x2345678901abcdef2345678901abcdef2345678901abcdef2345678901abcdef",
+    image: "/monkey.jpg",
+    isObfuscated: "true",
   },
   {
     id: "3",
     name: "Encrypted Dragon #777",
-    price: 5.2,
-    tags: ["Dragon", "Legendary", "Fire"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "A legendary dragon with hidden powers and encrypted flames.",
-    creator: "DragonForge",
-    createdAt: new Date("2024-01-10"),
-    rarity: "Legendary",
-    isObfuscated: true,
-    revealConditions: "Ownership verification required",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description:
+        "A legendary dragon with hidden powers and encrypted flames.",
+      price: 5.2,
+    },
+    merkleroot:
+      "0x3456789012abcdef3456789012abcdef3456789012abcdef3456789012abcdef",
+    image: "/monkey.jpg",
+    isObfuscated: "true",
   },
   {
     id: "4",
     name: "Mystery Box #001",
-    price: 0.5,
-    tags: ["Mystery", "Box", "Common"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "A mystery box containing unknown digital treasures.",
-    creator: "MysteryMaker",
-    createdAt: new Date("2024-01-25"),
-    rarity: "Common",
-    isObfuscated: true,
-    revealConditions: "Random reveal after purchase",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description: "A mystery box containing unknown digital treasures.",
+      price: 0.5,
+    },
+    merkleroot:
+      "0x4567890123abcdef4567890123abcdef4567890123abcdef4567890123abcdef",
+    image: "/monkey.jpg",
+    isObfuscated: "true",
   },
   {
     id: "5",
     name: "Time Capsule #2024",
-    price: 3.1,
-    tags: ["Time", "Capsule", "Future"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "A time capsule that will reveal its contents in the future.",
-    creator: "TimeTraveler",
-    createdAt: new Date("2024-01-05"),
-    rarity: "Epic",
-    isObfuscated: true,
-    revealConditions: "Unlocks on January 1, 2025",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description:
+        "A time capsule that will reveal its contents in the future.",
+      price: 3.1,
+    },
+    merkleroot:
+      "0x5678901234abcdef5678901234abcdef5678901234abcdef5678901234abcdef",
+    image: "/monkey.jpg",
+    isObfuscated: "true",
   },
   {
     id: "6",
     name: "Cipher Cat #999",
-    price: 1.2,
-    tags: ["Cat", "Cipher", "Cute"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "A cute cat with encrypted patterns and hidden messages.",
-    creator: "CatCoder",
-    createdAt: new Date("2024-01-18"),
-    rarity: "Rare",
-    isObfuscated: true,
-    revealConditions: "Solve the cipher puzzle",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description: "A cute cat with encrypted patterns and hidden messages.",
+      price: 1.2,
+    },
+    merkleroot:
+      "0x6789012345abcdef6789012345abcdef6789012345abcdef6789012345abcdef",
+    image: "/monkey.jpg",
+    isObfuscated: "true",
   },
 ];
 
@@ -99,41 +94,44 @@ export const myNFTs: NFT[] = [
   {
     id: "owned-1",
     name: "Revealed Ape #1234",
-    price: 2.0,
-    tags: ["Ape", "Revealed", "Owned"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "A fully revealed ape with all features visible.",
-    creator: "CryptoArtist",
-    createdAt: new Date("2024-01-12"),
-    rarity: "Rare",
-    isObfuscated: false,
-    proof: "0x1a2b3c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description: "A fully revealed ape with all features visible.",
+      price: 2.0,
+    },
+    merkleroot:
+      "0x7890123456abcdef7890123456abcdef7890123456abcdef7890123456abcdef",
+    image: "/monkey.jpg",
+
   },
   {
     id: "owned-2",
     name: "My Shadow Punk #0001",
-    price: 1.5,
-    tags: ["Punk", "Shadow", "Owned"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "Your personal shadow punk with unique traits.",
-    creator: "PixelMaster",
-    createdAt: new Date("2024-01-08"),
-    rarity: "Epic",
-    isObfuscated: false,
-    proof: "0x9876543210fedcba0987654321fedcba0987654321fedcba0987654321fedcba",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description: "Your personal shadow punk with unique traits.",
+      price: 1.5,
+    },
+    merkleroot:
+      "0x8901234567abcdef8901234567abcdef8901234567abcdef8901234567abcdef",
+    image: "/monkey.jpg",
+
   },
   {
     id: "owned-3",
     name: "Unlocked Mystery #555",
-    price: 0.8,
-    tags: ["Mystery", "Unlocked", "Surprise"],
-    image: "/placeholder.svg?height=300&width=300",
-    description: "A mystery box that has been opened to reveal its contents.",
-    creator: "MysteryMaker",
-    createdAt: new Date("2024-01-22"),
-    rarity: "Common",
-    isObfuscated: false,
-    proof: "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+    creator:
+      "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    metadata: {
+      description: "A mystery box that has been opened to reveal its contents.",
+      price: 0.8,
+    },
+    merkleroot:
+      "0x9012345678abcdef9012345678abcdef9012345678abcdef9012345678abcdef",
+    image: "/monkey.jpg",
+
   },
 ];
 
@@ -151,17 +149,13 @@ export function sortNFTs(nfts: NFT[], sortBy: SortOption): NFT[] {
 
   switch (sortBy) {
     case "price-low":
-      return sorted.sort((a, b) => a.price - b.price);
+      return sorted.sort((a, b) => a.metadata.price - b.metadata.price);
     case "price-high":
-      return sorted.sort((a, b) => b.price - a.price);
+      return sorted.sort((a, b) => b.metadata.price - a.metadata.price);
     case "newest":
-      return sorted.sort(
-        (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-      );
+      return sorted;
     case "oldest":
-      return sorted.sort(
-        (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
-      );
+      return sorted;
     default:
       return sorted;
   }

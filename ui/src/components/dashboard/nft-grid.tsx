@@ -3,7 +3,7 @@ import { NFTCard } from "@/components/dashboard/nft-card"
 import { NFTDialog } from "@/components/dashboard/nft-dialog"
 import { Skeleton } from "@/components/ui/skeleton"
 import { motion } from "framer-motion"
-import type { NFT } from "@/lib/sample-data"
+import type { NFT } from "@/lib/types"
 
 interface NFTGridProps {
   nfts: NFT[]

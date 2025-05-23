@@ -16,20 +16,17 @@ export type AuthState = {
   loggedIn: boolean;
   accounts: AccountData[];
   balances: Map<string, number>;
-  setLoggedIn: (loggedIn: boolean) => void;
   setAccounts: (accounts: AccountData[]) => void;
   clearAccounts: () => void;
   setBalances: (balances: Map<string, number>) => void;
   clearBalances: () => void;
 };
-
 export const useAuthStore = create<AuthState>((set) => ({
   loggedIn: false,
   accounts: [],
   balances: new Map(),
-  setLoggedIn: (loggedIn) => set({ loggedIn }),
-  setAccounts: (accounts) => set({ accounts }),
-  clearAccounts: () => set({ accounts: [] }),
+  setAccounts: (accounts) => set({ accounts, loggedIn: accounts.length > 0 }),
+  clearAccounts: () => set({ accounts: [], loggedIn: false }),
   setBalances: (balances) => set({ balances }),
   clearBalances: () => set({ balances: new Map() }),
 })); 
