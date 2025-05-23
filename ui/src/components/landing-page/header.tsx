@@ -4,7 +4,7 @@ import { NavLink as Link } from "react-router";
 import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
 import { AnimatedButton } from "./animated/animated-button";
-import { ConnectModal } from "@mysten/dapp-kit";
+import { ZkLogin } from "../zk-login/widget";
 
 const navLinks = [
   {
@@ -56,8 +56,8 @@ export function Header() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-4"
         >
-          <ConnectModal
-            trigger={
+          <ZkLogin
+            loggedOutTrigger={
               <AnimatedButton className="rounded-full">
                 Get Started
               </AnimatedButton>
