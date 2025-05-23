@@ -7,11 +7,18 @@ import {
   CallToActionSection,
   Footer,
 } from "@/components/landing-page";
-import { useWallet } from "@suiet/wallet-kit";
+import { useCurrentAccount } from "@mysten/dapp-kit";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 const HomePage = () => {
-  const { connected } = useWallet();
-  console.log(connected);
+  const currentAccount = useCurrentAccount();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (currentAccount) {
+      navigate("/dashboard");
+    }
+  }, [currentAccount, navigate]);
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

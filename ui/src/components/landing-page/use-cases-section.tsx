@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { FadeUp, StaggerContainer, StaggerItem } from "@/components/motion-wrapper"
 import { AnimatedText } from "./animated/animated-text"
 import { AnimatedCard } from "./animated/animated-card"
-import { cn } from "@/lib/utils"
 
 const useCases = [
   {

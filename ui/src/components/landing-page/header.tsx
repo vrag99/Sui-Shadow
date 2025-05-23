@@ -4,8 +4,7 @@ import { NavLink as Link } from "react-router";
 import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
 import { AnimatedButton } from "./animated/animated-button";
-import { ConnectModal } from "@suiet/wallet-kit";
-import "@suiet/wallet-kit/style.css";
+import { ConnectModal } from "@mysten/dapp-kit";
 
 const navLinks = [
   {
@@ -57,9 +56,13 @@ export function Header() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-4"
         >
-          <ConnectModal>
-            <AnimatedButton className="rounded-full">Get Started</AnimatedButton>
-          </ConnectModal>
+          <ConnectModal
+            trigger={
+              <AnimatedButton className="rounded-full">
+                Get Started
+              </AnimatedButton>
+            }
+          />
         </motion.div>
       </div>
     </header>
