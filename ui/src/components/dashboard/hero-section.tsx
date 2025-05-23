@@ -30,7 +30,7 @@ export function HeroSection({ title, description, badge }: HeroSectionProps) {
             </motion.div>
             <AnimatedText
               text={title}
-              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none"
+              className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl/none"
               delay={0.2}
             />
             <motion.p

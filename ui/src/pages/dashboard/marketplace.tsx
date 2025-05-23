@@ -20,6 +20,7 @@ import {
   sortOptions,
   type SortOption,
 } from "@/lib/sample-data";
+import { ZkLogin } from "@/components/zk-login/widget";
 
 export function Marketplace() {
   const [activeTab, setActiveTab] = useState("marketplace");
@@ -28,16 +29,6 @@ export function Marketplace() {
   const [sortedMarketplaceNFTs, setSortedMarketplaceNFTs] =
     useState(marketplaceNFTs);
   const [sortedMyNFTs, setSortedMyNFTs] = useState(myNFTs);
-
-  const navigate = useNavigate();
-  const currentAccount = useCurrentAccount();
-  const { mutate: disconnectWallet } = useDisconnectWallet();
-
-  useEffect(() => {
-    if (!currentAccount) {
-      navigate("/");
-    }
-  }, [currentAccount, navigate]);
 
   // Simulate data loading
   useEffect(() => {
@@ -97,29 +88,33 @@ export function Marketplace() {
               </TabsList>
             </Tabs>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-48"
-          >
-            <Select
-              value={sortBy}
-              onValueChange={(value: SortOption) => setSortBy(value)}
+          <div className="flex gap-2 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              // className="w-48"
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Sort by..." />
-              </SelectTrigger>
-              <SelectContent>
-                {sortOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </motion.div>
+              <Select
+                value={sortBy}
+                onValueChange={(value: SortOption) => setSortBy(value)}
+              >
+                <SelectTrigger className="rounded-full">
+                  <SelectValue placeholder="Sort by..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {sortOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </motion.div>
+            <motion.div className="div">
+              <ZkLogin loggedOutTrigger={<></>} />
+            </motion.div>
+          </div>
         </div>
       </header>
 

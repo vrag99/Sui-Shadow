@@ -61,12 +61,14 @@ export const ZkLogin: React.FC<{
   loggedOutTrigger: React.ReactNode;
 }> = ({ loggedInTrigger, loggedOutTrigger }) => {
   const {
+    loggedIn,
+    setLoggedIn,
     accounts,
     balances,
     setAccounts,
-    clearAccounts, 
+    clearAccounts,
     setBalances,
-    clearBalances
+    clearBalances,
   } = useAuthStore();
 
   useEffect(() => {
@@ -142,16 +144,23 @@ export const ZkLogin: React.FC<{
     if (!isSetupData(setupData)) return;
     clearSetupData();
     if (accounts.some((a) => a.userAddr === userAddr)) return;
-    const ephemeralKeyPair = keypairFromSecretKey(setupData.ephemeralPrivateKey);
+    const ephemeralKeyPair = keypairFromSecretKey(
+      setupData.ephemeralPrivateKey
+    );
     const ephemeralPublicKey = ephemeralKeyPair.getPublicKey();
-    const payload = JSON.stringify({
-      maxEpoch: setupData.maxEpoch,
-      jwtRandomness: setupData.randomness,
-      extendedEphemeralPublicKey: getExtendedEphemeralPublicKey(ephemeralPublicKey),
-      jwt,
-      salt: userSalt.toString(),
-      keyClaimName: "sub",
-    }, null, 2);
+    const payload = JSON.stringify(
+      {
+        maxEpoch: setupData.maxEpoch,
+        jwtRandomness: setupData.randomness,
+        extendedEphemeralPublicKey:
+          getExtendedEphemeralPublicKey(ephemeralPublicKey),
+        jwt,
+        salt: userSalt.toString(),
+        keyClaimName: "sub",
+      },
+      null,
+      2
+    );
     const zkProofs = await fetch(config.URL_ZK_PROVER, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -159,7 +168,7 @@ export const ZkLogin: React.FC<{
     })
       .then((res) => res.json())
       .catch(() => null);
-    if (!zkProofs || typeof zkProofs !== 'object') return;
+    if (!zkProofs || typeof zkProofs !== "object") return;
     setAccounts([
       {
         provider: setupData.provider,
@@ -168,11 +177,15 @@ export const ZkLogin: React.FC<{
         ephemeralPrivateKey: setupData.ephemeralPrivateKey,
         userSalt: userSalt.toString(),
         sub: jwtPayload.sub,
-        aud: typeof jwtPayload.aud === "string" ? jwtPayload.aud : jwtPayload.aud[0],
+        aud:
+          typeof jwtPayload.aud === "string"
+            ? jwtPayload.aud
+            : jwtPayload.aud[0],
         maxEpoch: setupData.maxEpoch,
       },
       ...accounts,
     ]);
+    setLoggedIn(true);
   }
 
   async function sendTransaction(account: AccountData) {
@@ -191,7 +204,9 @@ export const ZkLogin: React.FC<{
     ).toString();
     const zkLoginSignature = getZkLoginSignature({
       inputs: {
-        ...(typeof account.zkProofs === 'object' && account.zkProofs !== null ? account.zkProofs : {}),
+        ...(typeof account.zkProofs === "object" && account.zkProofs !== null
+          ? account.zkProofs
+          : {}),
         addressSeed,
       },
       maxEpoch: account.maxEpoch,
@@ -220,7 +235,10 @@ export const ZkLogin: React.FC<{
         owner: account.userAddr,
         coinType: "0x2::sui::SUI",
       });
-      newBalances.set(account.userAddr, +suiBalance.totalBalance / 1_000_000_000);
+      newBalances.set(
+        account.userAddr,
+        +suiBalance.totalBalance / 1_000_000_000
+      );
     }
     setBalances(newBalances);
   }
@@ -240,9 +258,10 @@ export const ZkLogin: React.FC<{
     sessionStorage.clear();
     clearAccounts();
     clearBalances();
+    setLoggedIn(false);
   }
 
-  if (accounts.length) {
+  if (loggedIn) {
     return (
       <Popover>
         <PopoverTrigger asChild>
@@ -279,7 +298,7 @@ export const ZkLogin: React.FC<{
                   </div>
                   <div className="space-y-2 text-sm">
                     <div>
-                      Address: {" "}
+                      Address:{" "}
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
@@ -291,7 +310,10 @@ export const ZkLogin: React.FC<{
                     </div>
                     <div>User ID: {acct.sub}</div>
                     <div>
-                      Balance: {typeof balance === "undefined" ? "(loading)" : `${balance} SUI`}
+                      Balance:{" "}
+                      {typeof balance === "undefined"
+                        ? "(loading)"
+                        : `${balance} SUI`}
                     </div>
                   </div>
                   <div className="mt-4 space-x-2">
